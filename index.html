@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8' />
+    <title>Show and hide layers</title>
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v1.4.0/mapbox-gl.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v1.4.0/mapbox-gl.css' rel='stylesheet' />
+    <style>
+        body { margin:0; padding:0; }
+        #map { position:absolute; top:0; bottom:0; width:100%; }
+    </style>
+</head>
+<body>
+
+<style>
+    #menu {
+        background: #fff;
+        position: absolute;
+        z-index: 1;
+        top: 10px;
+        right: 10px;
+        border-radius: 3px;
+        width: 120px;
+        border: 1px solid rgba(0,0,0,0.4);
+        font-family: 'Open Sans', sans-serif;
+    }
+
+    #menu a {
+        font-size: 13px;
+        color: #404040;
+        display: block;
+        margin: 0;
+        padding: 0;
+        padding: 10px;
+        text-decoration: none;
+        border-bottom: 1px solid rgba(0,0,0,0.25);
+        text-align: center;
+    }
+
+    #menu a:last-child {
+        border: none;
+    }
+
+    #menu a:hover {
+        background-color: #f8f8f8;
+        color: #404040;
+    }
+
+    #menu a.active {
+        background-color: #3887be;
+        color: #ffffff;
+    }
+
+    #menu a.active:hover {
+        background: #3074a4;
+    }
+</style>
+
+<nav id="menu"></nav>
+<div id="map"></div>
+
+<script>
+mapboxgl.accessToken = 'pk.eyJ1IjoiZ2lzc29sdXRpb25zbGxjbWFwcyIsImEiOiJjamxpMzk4OWcwOWJuM2tvMnBoMXV3OXFqIn0.LCDlwzOBg3XXOiWWHf7Xgw';
+var map = new mapboxgl.Map({
+    container: 'map',
+    style: 'mapbox://styles/gissolutionsllcmaps/ck1h6d7k40h2a1co37zbuat4d',
+    
+});
+
+map.on('load', function () {
+// make a pointer cursor
+        map.getCanvas().style.cursor = 'default';
+        // set map bounds to the continental US
+        map.fitBounds([
+          [-120.014562, 49.642578],
+          [-78.922070, 29.587468]
+  ]);
+        // make a pointer cursor
+        map.getCanvas().style.cursor = 'default';
+        // define layer names
+
+
+
+    <!-- map.addSource('T-Mobile', { -->
+        <!-- type: 'vector', -->
+        <!-- url: 'mapbox://mapbox.gissolutionsllcmaps.78hj29zk' -->
+    <!-- }); -->
+    <!-- map.addLayer({ -->
+        <!-- 'id': 'T-Mobile', -->
+        <!-- 'type': 'vector', -->
+        <!-- 'source': 'T-Mobile', -->
+        <!-- 'layout': { -->
+            <!-- 'visibility': 'visible' -->
+        <!-- }, -->
+        
+        <!-- 'source-layer': 'TMobile-8912fb' -->
+    <!-- }); -->
+
+    <!-- map.addSource('Verizon', { -->
+        <!-- type: 'vector', -->
+        <!-- url: 'mapbox://mapbox.gissolutionsllcmaps.1f27mt6w' -->
+    <!-- }); -->
+    <!-- map.addLayer({ -->
+        <!-- 'id': 'Verizon', -->
+        <!-- 'type': 'vector', -->
+        <!-- 'source': 'Verizon', -->
+        <!-- 'source-layer': 'VerizonWireless_dissolve_json-5xx4f3', -->
+     
+    <!-- }); -->
+});
+
+var toggleableLayerIds = [ 'Verizon', 'T-Mobile' ];
+
+for (var i = 0; i < toggleableLayerIds.length; i++) {
+    var id = toggleableLayerIds[i];
+
+    var link = document.createElement('a');
+    link.href = '#';
+    link.className = 'active';
+    link.textContent = id;
+
+    link.onclick = function (e) {
+        var clickedLayer = this.textContent;
+        e.preventDefault();
+        e.stopPropagation();
+
+        var visibility = map.getLayoutProperty(clickedLayer, 'visibility');
+
+        if (visibility === 'visible') {
+            map.setLayoutProperty(clickedLayer, 'visibility', 'none');
+            this.className = '';
+        } else {
+            this.className = 'active';
+            map.setLayoutProperty(clickedLayer, 'visibility', 'visible');
+        }
+    };
+
+    var layers = document.getElementById('menu');
+    layers.appendChild(link);
+}
+
+</script>
+
+</body>
+</html>
