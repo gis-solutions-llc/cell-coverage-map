@@ -64,7 +64,7 @@
 mapboxgl.accessToken = 'pk.eyJ1IjoiZ2lzc29sdXRpb25zbGxjbWFwcyIsImEiOiJjamxpMzk4OWcwOWJuM2tvMnBoMXV3OXFqIn0.LCDlwzOBg3XXOiWWHf7Xgw';
 var map = new mapboxgl.Map({
     container: 'map',
-    style: 'mapbox://styles/gissolutionsllcmaps/ck1h6d7k40h2a1co37zbuat4d',
+    style: 'mapbox://styles/gissolutionsllcmaps/ck1h6d7k40h2a1co37zbuat4d', 
     
 });
 
@@ -110,7 +110,7 @@ map.on('load', function () {
     <!-- }); -->
 });
 
-var toggleableLayerIds = [ 'Verizon', 'T-Mobile' ];
+var toggleableLayerIds = [ 'ATT LTE', 'Sprint LTE', 'T-Mobile LTE','Verizon LTE' ];
 
 for (var i = 0; i < toggleableLayerIds.length; i++) {
     var id = toggleableLayerIds[i];
